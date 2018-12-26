@@ -21,7 +21,7 @@ public class ChromeTest {
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.setHeadless(true);
 		driver = new ChromeDriver(chromeOptions);
-		
+
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 	}
@@ -29,26 +29,26 @@ public class ChromeTest {
 	@Test
 	public void searchForIPhone() {
 		driver.get("https://www.amazon.com/");
-		
+
 		WebElement searchBox = driver.findElement(By.id("twotabsearchtextbox"));
 		searchBox.sendKeys("iphone");
-		
+
 		WebElement searchButton = driver.findElement(By.className("nav-input"));
-        searchButton.click();
-		
+		searchButton.click();
+
 		Assert.assertEquals(driver.getTitle(), "Amazon.com: iphone - Cell Phones: Cell Phones & Accessories");
 	}
 
-	@Test(dependsOnMethods="searchForIPhone")
+	@Test(dependsOnMethods = "searchForIPhone")
 	public void checkPrice() throws InterruptedException {
 		WebElement iPhone = driver.findElement(By.xpath("//*[@id=\"result_0\"]/div/div[4]/div[1]/a"));
 		iPhone.click();
-		
+
 		WebElement iPhonePrice = driver.findElement(By.id("priceblock_ourprice"));
-		
-		Assert.assertEquals(iPhonePrice.getText(), "$199.99");
+
+		Assert.assertEquals(iPhonePrice.getText(), "$749.99");
 	}
-	
+
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
